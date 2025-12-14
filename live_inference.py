@@ -1,4 +1,4 @@
-"""Live fruit detection with arm control integration."""
+"""Live fruit detection with arm control-BEEP Boop Brigade"""
 from ultralytics import YOLO
 import cv2
 import os
@@ -78,7 +78,7 @@ def main_live_detection(use_arm=True, sorting_mode='fruit'):
     print("Trying to open cameras...")
 
     success, cap = None, None
-    for idx in [0, 1, 2]:  # Try index 0, then 1, then 2
+    for idx in [0, 1, 2]:  # Try index 0, then 1
         print(f"Trying camera index {idx}...")
         success, cap = try_camera(idx)
         if success:
@@ -97,7 +97,7 @@ def main_live_detection(use_arm=True, sorting_mode='fruit'):
     # Load config
     config = load_config(CONFIG_PATH)
     
-    # Initialize arm controller if requested
+    # Initialize arm controller 
     arm_controller = None
     if use_arm:
         try:
@@ -133,7 +133,6 @@ def main_live_detection(use_arm=True, sorting_mode='fruit'):
         # Draw detections
         annotated = draw_detections(frame.copy(), last_detections)
         
-        # Add info text
         info_text = f"Detections: {len(last_detections)} | Mode: {sorting_mode.upper()}"
         cv2.putText(annotated, info_text, (10, 30),
                    cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 255, 255), 2)
@@ -158,7 +157,7 @@ def main_live_detection(use_arm=True, sorting_mode='fruit'):
                 if sorting_mode == 'fruit':
                     arm_controller.sort_fruit_by_type(fruit['name'])
                 else:  # color mode
-                    # For color mode, pass the detected color
+                    
                     arm_controller.sort_fruit_by_color(fruit['name'])
             else:
                 print("Arm controller not available!")
